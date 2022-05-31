@@ -6,10 +6,11 @@ const handleError = require('../service/handleError');
 // 因 body chunk 部分已做處理
 const posts = {
     async getPosts(req, res) {
+        const timeSort = req.query.timeSort == "asc" ? "createdAt" : "-createdAt";
         const posts = await Post.find().populate({
             path: 'user',
             select: 'name photo'
-        });
+        }).sort(timeSort);
         handleSuccess(res, posts);
     },
     async createPost(req, res) {

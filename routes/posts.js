@@ -2,16 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const PostsControllers = require('../controllers/posts');
-// const { getPosts, createPost } = require('../controllers/posts');
 
-/* GET home page. */
-// router.get('/', function(req, res, next) {
-//     res.render('index', { title: 'Express' });
-// });
-
-// router.get('/posts', function(req, res, next) {
-//     PostsControllers.getPosts({ req, res });
-// });
 router.get('/',  PostsControllers.getPosts);
 
 router.post('/', PostsControllers.createPost);

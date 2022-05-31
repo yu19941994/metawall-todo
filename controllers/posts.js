@@ -17,13 +17,15 @@ const posts = {
     async createPost(req, res) {
         try {
             const { body } = req;
+            // 固定 ID
+            const userId = '629635e3a29b078d01109de9';
             if (!!body.content) {
                 const newPost = await Post.create(
                     {
                         content: body.content,
                         image: body.image,
                         name: body.name,
-                        user: body.user,
+                        user: userId,
                         likes: body.likes
                     }
                 )

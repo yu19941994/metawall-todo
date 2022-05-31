@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "7409d087-87fd-4a8c-8485-63fe3959f1d1",
+		"name": "metawall todo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "取得貼文",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://immense-headland-90748.herokuapp.com/api/posts",
+					"protocol": "https",
+					"host": [
+						"immense-headland-90748",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增貼文",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"content\": \"新增貼文\",\n\t\"name\": \"tom\"\n}"
+				},
+				"url": {
+					"raw": "https://immense-headland-90748.herokuapp.com/api/posts",
+					"protocol": "https",
+					"host": [
+						"immense-headland-90748",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "修改貼文",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"content\": \"修修改改\"\n}"
+				},
+				"url": {
+					"raw": "https://immense-headland-90748.herokuapp.com/api/posts/62964282e18d1698a67dcec5",
+					"protocol": "https",
+					"host": [
+						"immense-headland-90748",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts",
+						"62964282e18d1698a67dcec5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除單筆貼文",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://immense-headland-90748.herokuapp.com/api/posts/62964282e18d1698a67dcec5",
+					"protocol": "https",
+					"host": [
+						"immense-headland-90748",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts",
+						"62964282e18d1698a67dcec5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除所有貼文",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://immense-headland-90748.herokuapp.com/api/posts",
+					"protocol": "https",
+					"host": [
+						"immense-headland-90748",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

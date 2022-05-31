@@ -19,6 +19,11 @@ const postSchema = new mongoose.Schema(
             type: String,
             required: [true, '貼文姓名未填寫']
         },
+        user: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'User',
+            required: [true, '貼文 ID 未填寫']
+        },
         likes: {
             type: Number,
             default: 0

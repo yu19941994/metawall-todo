@@ -1,11 +1,15 @@
 const Post = require('../model/post');
+const User = require('../model/user');
 const handleSuccess = require('../service/handleSuccess');
 const handleError = require('../service/handleError');
 
 // 因 body chunk 部分已做處理
 const posts = {
     async getPosts(req, res) {
-        const posts = await Post.find();
+        const posts = await Post.find().populate({
+            path: 'user',
+            select: 'name photo'
+        });
         handleSuccess(res, posts);
     },
     async createPost(req, res) {
@@ -17,6 +21,7 @@ const posts = {
                         content: body.content,
                         image: body.image,
                         name: body.name,
+                        user: body.user,
                         likes: body.likes
                     }
                 )

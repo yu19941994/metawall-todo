@@ -7,7 +7,8 @@ const handleError = require('../service/handleError');
 const posts = {
     async getPosts(req, res) {
         const timeSort = req.query.timeSort == "asc" ? "createdAt" : "-createdAt";
-        const posts = await Post.find().populate({
+        const q = req.query.q !== undefined ? { "content": new RegExp(req.query.q) } : {};
+        const posts = await Post.find(q).populate({
             path: 'user',
             select: 'name photo'
         }).sort(timeSort);

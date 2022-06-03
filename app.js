@@ -30,6 +30,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/posts', postsRouter);
 app.use('/users', usersRouter);
 
+app.use((err, req, res, next) => {
+    console.log(err.name);
+    res.status(500).json({
+        'err': err.name
+    })
+});
+
 // 未捕捉到的 catch 
 process.on('unhandledRejection', (reason, promise) => {
   console.error('未捕捉到的 rejection：', promise, '原因：', reason);

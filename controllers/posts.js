@@ -1,7 +1,7 @@
 const Post = require('../model/post');
 const User = require('../model/user');
 const handleSuccess = require('../service/handleSuccess');
-const handleError = require('../service/handleError');
+const appError = require('../service/appError');
 
 // 因 body chunk 部分已做處理
 const posts = {
@@ -14,7 +14,7 @@ const posts = {
         }).sort(timeSort);
         handleSuccess(res, posts);
     },
-    async createPost(req, res) {
+    async createPost(req, res, next) {
         try {
             const { body } = req;
             // 固定 ID
@@ -31,13 +31,13 @@ const posts = {
                 )
                 handleSuccess(res, newPost);
             } else {
-                handleError(res);
+                appError(400, 'content 未填寫', next);
             }
         } catch (error) {
-            handleError(res, error);
+            appError(400, error.message, next);
         }
     },
-    async modifyPost(req, res) {
+    async modifyPost(req, res, next) {
         try {
             const id = req.params.id
             const content = req.body.content;
@@ -47,17 +47,17 @@ const posts = {
                 const posts = await Post.find();
                 handleSuccess(res, posts);
             } else {
-                handleError(res);
+                appError(400, 'content 為空值或無此 ID', next);
             }
         } catch (error) {
-            handleError(res, error);
+            appError(400, error.message, next);
         }
     },
     async deletePosts(req, res) {
         await Post.deleteMany({});
         handleSuccess(res, []);
     },
-    async deletePost(req, res) {
+    async deletePost(req, res, next) {
         try {
             const id = req.params.id;
             const isIdExist = await Post.findOne({_id: id});
@@ -65,10 +65,10 @@ const posts = {
                 const posts = await Post.findByIdAndDelete(id);
                 handleSuccess(res, posts);
             } else {
-                handleError(res);
+                appError(400, '無此 ID', next);
             }
         } catch (error) {
-            handleError(res, error);
+            appError(400, error.message, next);
         }
     }
 }

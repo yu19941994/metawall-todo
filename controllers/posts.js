@@ -15,42 +15,34 @@ const posts = {
         handleSuccess(res, posts);
     },
     async createPost(req, res, next) {
-        try {
-            const { body } = req;
-            // 固定 ID
-            const userId = '629635e3a29b078d01109de9';
-            if (!!body.content) {
-                const newPost = await Post.create(
-                    {
-                        content: body.content,
-                        image: body.image,
-                        name: body.name,
-                        user: userId,
-                        likes: body.likes
-                    }
-                )
-                handleSuccess(res, newPost);
-            } else {
-                appError(400, 'content 未填寫', next);
-            }
-        } catch (error) {
-            appError(400, error.message, next);
+        const { body } = req;
+        // 固定 ID
+        const userId = '629635e3a29b078d01109de9';
+        if (!!body.content) {
+            const newPost = await Post.create(
+                {
+                    content: body.content,
+                    image: body.image,
+                    name: body.name,
+                    user: userId,
+                    likes: body.likes
+                }
+            )
+            handleSuccess(res, newPost);
+        } else {
+            appError(400, 'content 未填寫', next);
         }
     },
     async modifyPost(req, res, next) {
-        try {
-            const id = req.params.id
-            const content = req.body.content;
-            const isIdExist = await Post.findOne({_id: id});
-            if ((!!isIdExist) && (!!content)) {
-                await Post.findByIdAndUpdate(id, { content })
-                const posts = await Post.find();
-                handleSuccess(res, posts);
-            } else {
-                appError(400, 'content 為空值或無此 ID', next);
-            }
-        } catch (error) {
-            appError(400, error.message, next);
+        const id = req.params.id
+        const content = req.body.content;
+        const isIdExist = await Post.findOne({_id: id});
+        if ((!!isIdExist) && (!!content)) {
+            await Post.findByIdAndUpdate(id, { content })
+            const posts = await Post.find();
+            handleSuccess(res, posts);
+        } else {
+            appError(400, 'content 為空值或無此 ID', next);
         }
     },
     async deletePosts(req, res) {
@@ -58,17 +50,13 @@ const posts = {
         handleSuccess(res, []);
     },
     async deletePost(req, res, next) {
-        try {
-            const id = req.params.id;
-            const isIdExist = await Post.findOne({_id: id});
-            if (isIdExist) {
-                const posts = await Post.findByIdAndDelete(id);
-                handleSuccess(res, posts);
-            } else {
-                appError(400, '無此 ID', next);
-            }
-        } catch (error) {
-            appError(400, error.message, next);
+        const id = req.params.id;
+        const isIdExist = await Post.findOne({_id: id});
+        if (isIdExist) {
+            const posts = await Post.findByIdAndDelete(id);
+            handleSuccess(res, posts);
+        } else {
+            appError(400, '無此 ID', next);
         }
     }
 }

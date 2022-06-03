@@ -30,4 +30,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/posts', postsRouter);
 app.use('/users', usersRouter);
 
+// 未捕捉到的 catch 
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('未捕捉到的 rejection：', promise, '原因：', reason);
+  // 記錄於 log 上
+});
+
 module.exports = app;

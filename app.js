@@ -30,11 +30,47 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/posts', postsRouter);
 app.use('/users', usersRouter);
 
-app.use((err, req, res, next) => {
-    console.log(err.name);
-    res.status(500).json({
-        'err': err.name
+// express 錯誤處理
+// production mode
+resErrorProd = (err, res) => {
+    if (err.isOperational) {
+        // 可預期的錯誤
+        res.status(err.statusCode).json({
+            message: err.message
+        })
+    } else {
+        // 為預期的錯誤，傳送罐頭訊息
+        console.error('出現重大錯誤', err);
+        res.status(500).json({
+            status: 'error',
+            message: '系統錯誤，請假管理員'
+        })
+    }
+};
+
+// dev
+resErrorDev = (err, res) => {
+    res.status(err.statusCode).json({
+        message: err.message,
+        error: err,
+        stack: err.stack
     })
+};
+
+// 判別是 production 還是 dev
+app.use((err, req, res, next) => {
+    err.statusCode = err.statusCode || 500;
+    // dev
+    if (process.env.NODE_ENV === 'dev') {
+        return resErrorDev(err, res);
+    }
+    // production
+    if (err.name === 'ValidationError') {
+        err.message = '資料欄位未填寫正確，請重新輸入！';
+        err.isOperational = true;
+        return resErrorProd(err, res);
+    }
+    resErrorProd(err, res);
 });
 
 // 未捕捉到的 catch 

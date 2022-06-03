@@ -1,7 +1,7 @@
 const Post = require('../model/post');
 const User = require('../model/user');
 const handleSuccess = require('../service/handleSuccess');
-const handleError = require('../service/handleError');
+const appError = require('../service/appError');
 
 // 因 body chunk 部分已做處理
 const posts = {
@@ -14,61 +14,49 @@ const posts = {
         }).sort(timeSort);
         handleSuccess(res, posts);
     },
-    async createPost(req, res) {
-        try {
-            const { body } = req;
-            // 固定 ID
-            const userId = '629635e3a29b078d01109de9';
-            if (!!body.content) {
-                const newPost = await Post.create(
-                    {
-                        content: body.content,
-                        image: body.image,
-                        name: body.name,
-                        user: userId,
-                        likes: body.likes
-                    }
-                )
-                handleSuccess(res, newPost);
-            } else {
-                handleError(res);
-            }
-        } catch (error) {
-            handleError(res, error);
+    async createPost(req, res, next) {
+        const { body } = req;
+        // 固定 ID
+        const userId = '629635e3a29b078d01109de9';
+        if (!!body.content) {
+            const newPost = await Post.create(
+                {
+                    content: body.content,
+                    image: body.image,
+                    name: body.name,
+                    user: userId,
+                    likes: body.likes
+                }
+            )
+            handleSuccess(res, newPost);
+        } else {
+            appError(400, 'content 未填寫', next);
         }
     },
-    async modifyPost(req, res) {
-        try {
-            const id = req.params.id
-            const content = req.body.content;
-            const isIdExist = await Post.findOne({_id: id});
-            if ((!!isIdExist) && (!!content)) {
-                await Post.findByIdAndUpdate(id, { content })
-                const posts = await Post.find();
-                handleSuccess(res, posts);
-            } else {
-                handleError(res);
-            }
-        } catch (error) {
-            handleError(res, error);
+    async modifyPost(req, res, next) {
+        const id = req.params.id
+        const content = req.body.content;
+        const isIdExist = await Post.findOne({_id: id});
+        if ((!!isIdExist) && (!!content)) {
+            await Post.findByIdAndUpdate(id, { content })
+            const posts = await Post.find();
+            handleSuccess(res, posts);
+        } else {
+            appError(400, 'content 為空值或無此 ID', next);
         }
     },
     async deletePosts(req, res) {
         await Post.deleteMany({});
         handleSuccess(res, []);
     },
-    async deletePost(req, res) {
-        try {
-            const id = req.params.id;
-            const isIdExist = await Post.findOne({_id: id});
-            if (isIdExist) {
-                const posts = await Post.findByIdAndDelete(id);
-                handleSuccess(res, posts);
-            } else {
-                handleError(res);
-            }
-        } catch (error) {
-            handleError(res, error);
+    async deletePost(req, res, next) {
+        const id = req.params.id;
+        const isIdExist = await Post.findOne({_id: id});
+        if (isIdExist) {
+            const posts = await Post.findByIdAndDelete(id);
+            handleSuccess(res, posts);
+        } else {
+            appError(400, '無此 ID', next);
         }
     }
 }

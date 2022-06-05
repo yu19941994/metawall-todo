@@ -53,6 +53,6 @@ router.post('/sign_up', handleErrorAsync(async (req, res, next) => {
         name
     });
     generatedSendJWT(newUser, 201, res);
-}))
+}));
 
 module.exports = router;

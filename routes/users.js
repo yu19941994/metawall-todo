@@ -111,4 +111,12 @@ router.post('/updatePassword', isAuth, handleErrorAsync(async (req, res, next) =
     generatedSendJWT(user, 200, res);
 }));
 
+// 取得個人資料
+router.get('/profile', isAuth, handleErrorAsync(async (req, res, next) => {
+    res.status(200).json({
+        status: 'success',
+        user: req.user
+    })
+}))
+
 module.exports = router;

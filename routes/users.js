@@ -45,7 +45,7 @@ const isAuth = handleErrorAsync(async (req, res, next) => {
 
     req.user = currentUser;
     next();
-})
+});
 
 
 // 註冊功能
@@ -117,6 +117,6 @@ router.get('/profile', isAuth, handleErrorAsync(async (req, res, next) => {
         status: 'success',
         user: req.user
     })
-}))
+}));
 
 module.exports = router;

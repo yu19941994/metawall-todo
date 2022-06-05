@@ -6,11 +6,6 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: [true, '請輸入您的名字']
         },
-        password: {
-            type: String,
-            required: [true, '請輸入您的密碼'],
-            select: false
-        },
         email: {
             type: String,
             required: [true, '請輸入您的 Email'],
@@ -21,6 +16,21 @@ const userSchema = new mongoose.Schema(
         photo: {
             type: String,
             default: ""
+        },
+        sex: {
+            type: String,
+            enum: ['male', 'female']
+        },
+        password: {
+            type: Striing,
+            required: [true, '請輸入密碼'],
+            minlength: 8,
+            select: false
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            select: false
         }
     },
     {

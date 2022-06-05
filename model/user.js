@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
             enum: ['male', 'female']
         },
         password: {
-            type: Striing,
+            type: String,
             required: [true, '請輸入密碼'],
             minlength: 8,
             select: false

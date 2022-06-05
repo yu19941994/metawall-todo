@@ -22,6 +22,32 @@ const generatedSendJWT = (user, statusCode, res) => {
     })
 };
 
+// 驗證是否已登入
+const isAuth = handleErrorAsync(async (req, res, next) => {
+    let token;
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+        token = req.headers.authorization.split(' ')[1];
+    }
+    if (!token) {
+        return appError(401, '您尚未登入！', next);
+    }
+    // 驗證 token 正確性
+    const decoded = await new Promise((resolve, reject) => {
+        jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(payload);
+            }
+        });
+    });
+    const currentUser = await User.findById(decoded.id);
+
+    req.user = currentUser;
+    next();
+})
+
+
 // 註冊功能
 router.post('/sign_up', handleErrorAsync(async (req, res, next) => {
     let { email, password, confirmPassword, name } = req.body;
@@ -67,6 +93,21 @@ router.post('/sign_in', handleErrorAsync(async (req, res, next) => {
     if (!auth) {
         return appError(400, '您的密碼不正確', next);
     }
+    generatedSendJWT(user, 200, res);
+}));
+
+// 重設密碼
+router.post('/updatePassword', isAuth, handleErrorAsync(async (req, res, next) => {
+    const { password, confirmPassword } = req.body;
+    if (password !== confirmPassword) {
+        return appError(400, '密碼不一致', next);
+    }
+
+    const newPassword = await bcrypt.hash(password, 12);
+
+    const user = await User.findByIdAndUpdate(req.user.id, {
+        password: newPassword
+    });
     generatedSendJWT(user, 200, res);
 }));
 

@@ -56,4 +56,18 @@ router.post('/sign_up', handleErrorAsync(async (req, res, next) => {
     generatedSendJWT(newUser, 201, res);
 }));
 
+// 登入功能
+router.post('/sign_in', handleErrorAsync(async (req, res, next) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+        return appError(400, '帳號密碼不可為空', next);
+    }
+    const user = await User.findOne({ email }).select('+password');
+    const auth = await bcrypt.compare(password, user.password);
+    if (!auth) {
+        return appError(400, '您的密碼不正確', next);
+    }
+    generatedSendJWT(user, 200, res);
+}));
+
 module.exports = router;

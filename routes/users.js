@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../model/user');
 const appError = require('../service/appError');
+const handleSuccess = require('../service/handleSuccess');
 const handleErrorAsync = require('../service/handleErrorAsync');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
@@ -117,6 +118,13 @@ router.get('/profile', isAuth, handleErrorAsync(async (req, res, next) => {
         status: 'success',
         user: req.user
     })
+}));
+
+// 更新個人資料
+router.patch('/profile', isAuth, handleErrorAsync(async (req, res, next) => {
+    const { name, photo } = req.body;
+    const user = await User.findByIdAndUpdate(req.user.id, { name, photo });
+    handleSuccess(res, user);
 }));
 
 module.exports = router;

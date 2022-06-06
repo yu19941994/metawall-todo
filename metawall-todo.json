@@ -44,7 +44,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"content\": \"新增貼文\",\n\t\"name\": \"tom\"\n}"
+					"raw": "{\n\t\"content\": \"新增貼文\",\n\t\"name2\": \"tom\"\n}"
 				},
 				"url": {
 					"raw": "https://immense-headland-90748.herokuapp.com/api/posts",
@@ -141,6 +141,175 @@
 					"path": [
 						"api",
 						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "註冊會員",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"yumeta\",\n\t\"email\": \"yumeta@gmail.com\",\n\t\"password\": \"12334456\",\n\t\"confirmPassword\": \"12334456\"\n}"
+				},
+				"url": {
+					"raw": "https://immense-headland-90748.herokuapp.com/users/sign_up",
+					"protocol": "https",
+					"host": [
+						"immense-headland-90748",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"sign_up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "登入功能",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"yumeta@gmail.com\",\n\t\"password\": \"12334456\"\n}"
+				},
+				"url": {
+					"raw": "https://immense-headland-90748.herokuapp.com/users/sign_in",
+					"protocol": "https",
+					"host": [
+						"immense-headland-90748",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"sign_in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "重設密碼",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWUzYWI2MTNlOGE2NGNjMGExN2FjZCIsIm5hbWUiOiJ5dW1ldGEiLCJpYXQiOjE2NTQ1MzY5MTYsImV4cCI6MTY1NTE0MTcxNn0.hPzKrBpcr1W-IzKqd6Dzrxqr51DqhSPEC8PVCPwV2SI"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"password\": \"abcdefgh\",\n\t\"confirmPassword\": \"abcdefgh\"\n}"
+				},
+				"url": {
+					"raw": "https://immense-headland-90748.herokuapp.com/users/updatePassword",
+					"protocol": "https",
+					"host": [
+						"immense-headland-90748",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"updatePassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "取得個人資料",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWUzYWI2MTNlOGE2NGNjMGExN2FjZCIsIm5hbWUiOiJ5dW1ldGEiLCJpYXQiOjE2NTQ1MzY5MTYsImV4cCI6MTY1NTE0MTcxNn0.hPzKrBpcr1W-IzKqd6Dzrxqr51DqhSPEC8PVCPwV2SI"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://immense-headland-90748.herokuapp.com/users/profile",
+					"protocol": "https",
+					"host": [
+						"immense-headland-90748",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "更新個人資料",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOWUzYWI2MTNlOGE2NGNjMGExN2FjZCIsIm5hbWUiOiJ5dW1ldGEiLCJpYXQiOjE2NTQ1MzY5MTYsImV4cCI6MTY1NTE0MTcxNn0.hPzKrBpcr1W-IzKqd6Dzrxqr51DqhSPEC8PVCPwV2SI"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"yaya\",\n  \"photo\": \"test\"\n}"
+				},
+				"url": {
+					"raw": "https://immense-headland-90748.herokuapp.com/users/profile",
+					"protocol": "https",
+					"host": [
+						"immense-headland-90748",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"profile"
 					]
 				}
 			},

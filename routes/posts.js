@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const handleErrorAsync = require('../service/handleErrorAsync');
 const { isAuth } = require('../service/auth');
 const PostsControllers = require('../controllers/posts');
-const handleErrorAsync = require('../service/handleErrorAsync');
 
 router.get('/', isAuth, PostsControllers.getPosts);
 

@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-
+const { isAuth } = require('../service/auth');
 const PostsControllers = require('../controllers/posts');
 const handleErrorAsync = require('../service/handleErrorAsync');
 
-router.get('/',  PostsControllers.getPosts);
+router.get('/', isAuth, PostsControllers.getPosts);
 
-router.post('/', handleErrorAsync(PostsControllers.createPost));
+router.post('/', isAuth, handleErrorAsync(PostsControllers.createPost));
 
 router.patch('/:id', handleErrorAsync(PostsControllers.modifyPost));
 

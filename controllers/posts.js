@@ -16,12 +16,10 @@ const posts = {
     },
     async createPost(req, res, next) {
         const { body } = req;
-        console.log(body.content)
-        console.log(body.content.trim())
         if (!!body.content) {
             const newPost = await Post.create(
                 {
-                    content: body.content.trim(),
+                    content: body.content,
                     image: body.image,
                     name: body.name,
                     user: req.user.id,
@@ -35,7 +33,7 @@ const posts = {
     },
     async modifyPost(req, res, next) {
         const id = req.params.id
-        const content = req.body.content.trim();
+        const content = req.body.content;
         const isIdExist = await Post.findOne({_id: id});
         if ((!!isIdExist) && (!!content)) {
             await Post.findByIdAndUpdate(id, { content })

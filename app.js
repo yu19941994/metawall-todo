@@ -59,6 +59,14 @@ resErrorDev = (err, res) => {
     })
 };
 
+// 找不到路由的錯誤攔截
+app.use((req, res, next) => {
+    res.status(404).send({
+        status: false,
+        message: '無此網路路由'
+    })
+})
+
 // 判別是 production 還是 dev
 app.use((err, req, res, next) => {
     err.statusCode = err.statusCode || 500;

@@ -15,6 +15,7 @@ process.on('uncaughtException', err => {
 // router
 const postsRouter = require('./routes/posts');
 const usersRouter = require('./routes/users');
+const uploadRouter = require('./routes/upload');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/posts', postsRouter);
 app.use('/users', usersRouter);
+app.use('/upload', uploadRouter);
 
 // express 錯誤處理
 // production mode

@@ -49,6 +49,15 @@ const users = {
         if (!email || !password) {
             return appError(400, '帳號密碼不可為空', next);
         }
+        // 密碼 8 碼以上
+        if (!validator.isLength(password, { min: 8 })){
+            return appError('400', '密碼字數小於 8 碼', next);
+        }
+
+        // 是否為 Email
+        if (!validator.isEmail(email)) {
+            return appError('400', 'Email 格式不正確', next);
+        }
         const user = await User.findOne({ email }).select('+password');
         if (!user) {
             return appError(400, '使用者帳號不存在', next);

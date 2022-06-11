@@ -8,11 +8,11 @@ router.get('/posts', isAuth, PostsControllers.getPosts);
 
 router.post('/post', isAuth, handleErrorAsync(PostsControllers.createPost));
 
-router.patch('/post/:id', handleErrorAsync(PostsControllers.modifyPost));
+router.patch('/post/:id', isAuth, handleErrorAsync(PostsControllers.modifyPost));
 
-router.delete('/posts', PostsControllers.deletePosts);
+router.delete('/posts', isAuth, PostsControllers.deletePosts);
 
-router.delete('/post/:id', handleErrorAsync(PostsControllers.deletePost));
+router.delete('/post/:id', isAuth, handleErrorAsync(PostsControllers.deletePost));
 
 router.options('/posts', function(req, res, next) {
     HttpControllers.cors(res);

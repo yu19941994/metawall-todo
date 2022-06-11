@@ -9,10 +9,15 @@ const { generatedSendJWT } = require('../service/auth');
 const users = {
     async signUp (req, res, next) {
         let { email, password, confirmPassword, name } = req.body;
-
         // 內容不為空
         if (!email || !password || !confirmPassword || !name) {
             return appError('400', '欄位未填寫正確', next);
+        }
+
+        // 如果信箱有註冊過了
+        const checkEmail = await User.findOne({ email: email });
+        if (!!checkEmail) {
+            return appError('400', '此信箱已註冊過囉！', next);
         }
 
         // 密碼正確
@@ -30,6 +35,11 @@ const users = {
             return appError('400', 'Email 格式不正確', next);
         }
 
+        // 暱稱至少 2 個字元以上
+        if (!validator.isLength(name, { min: 2 })){
+            return appError('400', '暱稱至少 2 個字元以上', next);
+        }
+
         // 加密密碼
         password = await bcrypt.hash(req.body.password, 12);
         const newUser = await User.create({
@@ -44,7 +54,19 @@ const users = {
         if (!email || !password) {
             return appError(400, '帳號密碼不可為空', next);
         }
+        // 密碼 8 碼以上
+        if (!validator.isLength(password, { min: 8 })){
+            return appError('400', '密碼字數小於 8 碼', next);
+        }
+
+        // 是否為 Email
+        if (!validator.isEmail(email)) {
+            return appError('400', 'Email 格式不正確', next);
+        }
         const user = await User.findOne({ email }).select('+password');
+        if (!user) {
+            return appError(400, '使用者帳號不存在', next);
+        }
         const auth = await bcrypt.compare(password, user.password);
         if (!auth) {
             return appError(400, '您的密碼不正確', next);
@@ -72,7 +94,7 @@ const users = {
     },
     async updateProfile (req, res, next) {
         const { name, photo } = req.body;
-        const user = await User.findByIdAndUpdate(req.user.id, { name, photo });
+        const user = await User.findByIdAndUpdate(req.user.id, { name: name.trim(), photo }, { new: true });
         handleSuccess(res, user);
     }
 }

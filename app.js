@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/posts', postsRouter);
+app.use('/api', postsRouter);
 app.use('/users', usersRouter);
 app.use('/upload', uploadRouter);
 
@@ -40,8 +40,12 @@ resErrorProd = (err, res) => {
         res.status(err.statusCode).json({
             message: err.message
         })
+    } else if (err.name === SyntaxError && err.name === 'TypeError' && err.name === 'CastError') {
+        res.status(400).json({
+            message: err.message
+        })
     } else {
-        // 為預期的錯誤，傳送罐頭訊息
+        // 為非預期的錯誤，傳送罐頭訊息
         console.error('出現重大錯誤', err);
         res.status(500).json({
             status: 'error',
@@ -58,6 +62,14 @@ resErrorDev = (err, res) => {
         stack: err.stack
     })
 };
+
+// 找不到路由的錯誤攔截
+app.use((req, res, next) => {
+    res.status(404).send({
+        status: false,
+        message: '無此網路路由'
+    })
+})
 
 // 判別是 production 還是 dev
 app.use((err, req, res, next) => {

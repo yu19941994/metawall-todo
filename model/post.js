@@ -15,10 +15,6 @@ const postSchema = new mongoose.Schema(
             default: Date.now,
             select: false
         },
-        name: {
-            type: String,
-            required: [true, '貼文姓名未填寫']
-        },
         user: {
             type: mongoose.Schema.ObjectId,
             ref: 'User',

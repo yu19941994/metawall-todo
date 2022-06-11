@@ -47,7 +47,7 @@ resErrorProd = (err, res) => {
             message: err.message
         })
     } else {
-        // 為預期的錯誤，傳送罐頭訊息
+        // 為非預期的錯誤，傳送罐頭訊息
         console.error('出現重大錯誤', err);
         res.status(500).json({
             status: 'error',

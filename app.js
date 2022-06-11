@@ -42,7 +42,7 @@ resErrorProd = (err, res) => {
         res.status(err.statusCode).json({
             message: err.message
         })
-    } else if (err.name === SyntaxError) {
+    } else if (err.name === SyntaxError && err.name === 'TypeError') {
         res.status(400).json({
             message: err.message
         })

@@ -35,7 +35,7 @@ const posts = {
         const id = req.params.id
         const content = req.body.content.trim();
         const isIdExist = await Post.findOne({_id: id});
-        if ((!!isIdExist) && (!!content)) {
+        if ((!!isIdExist) && (!!content) && (id === isIdExist.id)) {
             await Post.findByIdAndUpdate(id, { content })
             const posts = await Post.find();
             handleSuccess(res, posts);
@@ -50,7 +50,7 @@ const posts = {
     async deletePost(req, res, next) {
         const id = req.params.id;
         const isIdExist = await Post.findOne({_id: id});
-        if (isIdExist) {
+        if (isIdExist && (id === isIdExist.id)) {
             const posts = await Post.findByIdAndDelete(id);
             handleSuccess(res, posts);
         } else {

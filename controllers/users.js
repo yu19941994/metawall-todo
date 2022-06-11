@@ -94,8 +94,7 @@ const users = {
     },
     async updateProfile (req, res, next) {
         const { name, photo } = req.body;
-        const checkName = name.trim();
-        const user = await User.findByIdAndUpdate(req.user.id, { checkName, photo });
+        const user = await User.findByIdAndUpdate(req.user.id, { name, photo });
         handleSuccess(res, user);
     }
 }

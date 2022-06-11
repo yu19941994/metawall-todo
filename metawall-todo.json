@@ -9,7 +9,13 @@
 			"name": "取得貼文",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTQ5MzRmYzZkMmQ4NmY0MzY0ZDZmNiIsIm5hbWUiOiJ5dW1ldGEyIiwiaWF0IjoxNjU0OTUyNzg0LCJleHAiOjE2NTU1NTc1ODR9.DH0AfL40g9oZXLOw02s0RkwWirO3yn0PzF_Cqo6cM4M",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -40,6 +46,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTQ5MzRmYzZkMmQ4NmY0MzY0ZDZmNiIsIm5hbWUiOiJ5dW1ldGEyIiwiaWF0IjoxNjU0OTUyNzg0LCJleHAiOjE2NTU1NTc1ODR9.DH0AfL40g9oZXLOw02s0RkwWirO3yn0PzF_Cqo6cM4M",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -47,7 +58,7 @@
 					"raw": "{\n\t\"content\": \"新增貼文\",\n\t\"name\": \"tom\",\n\t\"user\": \"62962f991e12294b41196666\"\n}"
 				},
 				"url": {
-					"raw": "https://immense-headland-90748.herokuapp.com/api/posts",
+					"raw": "https://immense-headland-90748.herokuapp.com/api/post",
 					"protocol": "https",
 					"host": [
 						"immense-headland-90748",
@@ -56,7 +67,7 @@
 					],
 					"path": [
 						"api",
-						"posts"
+						"post"
 					]
 				}
 			},
@@ -72,6 +83,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTQ5MzRmYzZkMmQ4NmY0MzY0ZDZmNiIsIm5hbWUiOiJ5dW1ldGEyIiwiaWF0IjoxNjU0OTUyNzg0LCJleHAiOjE2NTU1NTc1ODR9.DH0AfL40g9oZXLOw02s0RkwWirO3yn0PzF_Cqo6cM4M",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -79,7 +95,7 @@
 					"raw": "{\n  \"content\": \"修修改改\"\n}"
 				},
 				"url": {
-					"raw": "https://immense-headland-90748.herokuapp.com/api/posts/629a150a153306a302365352",
+					"raw": "https://immense-headland-90748.herokuapp.com/api/post/62a2b9c208c2218705d7841d",
 					"protocol": "https",
 					"host": [
 						"immense-headland-90748",
@@ -88,8 +104,8 @@
 					],
 					"path": [
 						"api",
-						"posts",
-						"629a150a153306a302365352"
+						"post",
+						"62a2b9c208c2218705d7841d"
 					]
 				}
 			},
@@ -99,13 +115,19 @@
 			"name": "刪除單筆貼文",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTQ5MzRmYzZkMmQ4NmY0MzY0ZDZmNiIsIm5hbWUiOiJ5dW1ldGEyIiwiaWF0IjoxNjU0OTUyNzg0LCJleHAiOjE2NTU1NTc1ODR9.DH0AfL40g9oZXLOw02s0RkwWirO3yn0PzF_Cqo6cM4M",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://immense-headland-90748.herokuapp.com/api/posts/629a150a153306a302365352",
+					"raw": "https://immense-headland-90748.herokuapp.com/api/post/62a2b9c208c2218705d7841d",
 					"protocol": "https",
 					"host": [
 						"immense-headland-90748",
@@ -114,8 +136,8 @@
 					],
 					"path": [
 						"api",
-						"posts",
-						"629a150a153306a302365352"
+						"post",
+						"62a2b9c208c2218705d7841d"
 					]
 				}
 			},
@@ -125,7 +147,13 @@
 			"name": "刪除所有貼文",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTQ5MzRmYzZkMmQ4NmY0MzY0ZDZmNiIsIm5hbWUiOiJ5dW1ldGEyIiwiaWF0IjoxNjU0OTUyNzg0LCJleHAiOjE2NTU1NTc1ODR9.DH0AfL40g9oZXLOw02s0RkwWirO3yn0PzF_Cqo6cM4M",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -160,7 +188,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"yumeta\",\n\t\"email\": \"yumeta@gmail.com\",\n\t\"password\": \"12334456\",\n\t\"confirmPassword\": \"12334456\"\n}"
+					"raw": "{\n\t\"name\": \"yumeta2\",\n\t\"email\": \"yumeta2@gmail.com\",\n\t\"password\": \"12334456\",\n\t\"confirmPassword\": \"12334456\"\n}"
 				},
 				"url": {
 					"raw": "https://immense-headland-90748.herokuapp.com/users/sign_up",
@@ -280,8 +308,11 @@
 		},
 		{
 			"name": "更新個人資料",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "PATCH",
+				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",

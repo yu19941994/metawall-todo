@@ -9,10 +9,15 @@ const { generatedSendJWT } = require('../service/auth');
 const users = {
     async signUp (req, res, next) {
         let { email, password, confirmPassword, name } = req.body;
-
         // 內容不為空
         if (!email || !password || !confirmPassword || !name) {
             return appError('400', '欄位未填寫正確', next);
+        }
+
+        // 如果信箱有註冊過了
+        const checkEmail = await User.findOne({ email: email });
+        if (!!checkEmail) {
+            return appError('400', '此信箱已註冊過囉！', next);
         }
 
         // 密碼正確

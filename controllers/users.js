@@ -50,6 +50,9 @@ const users = {
             return appError(400, '帳號密碼不可為空', next);
         }
         const user = await User.findOne({ email }).select('+password');
+        if (!user) {
+            return appError(400, '使用者帳號不存在', next);
+        }
         const auth = await bcrypt.compare(password, user.password);
         if (!auth) {
             return appError(400, '您的密碼不正確', next);

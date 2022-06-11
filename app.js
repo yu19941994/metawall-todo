@@ -35,9 +35,15 @@ app.use('/upload', uploadRouter);
 // express 錯誤處理
 // production mode
 resErrorProd = (err, res) => {
+    console.log('err.name')
+    console.log(err.name)
     if (err.isOperational) {
         // 可預期的錯誤
         res.status(err.statusCode).json({
+            message: err.message
+        })
+    } else if (err.name === SyntaxError) {
+        res.status(400).json({
             message: err.message
         })
     } else {

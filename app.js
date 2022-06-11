@@ -49,7 +49,7 @@ resErrorProd = (err, res) => {
         console.error('出現重大錯誤', err);
         res.status(500).json({
             status: 'error',
-            message: '系統錯誤，請假管理員'
+            message: '系統錯誤，請洽管理員'
         })
     }
 };

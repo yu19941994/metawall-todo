@@ -35,6 +35,11 @@ const users = {
             return appError('400', 'Email 格式不正確', next);
         }
 
+        // 暱稱至少 2 個字元以上
+        if (!validator.isLength(name, { min: 2 })){
+            return appError('400', '暱稱至少 2 個字元以上', next);
+        }
+
         // 加密密碼
         password = await bcrypt.hash(req.body.password, 12);
         const newUser = await User.create({

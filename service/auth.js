@@ -31,7 +31,8 @@ const isAuth = handleErrorAsync(async (req, res, next) => {
     const decoded = await new Promise((resolve, reject) => {
         jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
             if (err) {
-                reject(err);
+                // token 過期時，回傳 401 或 403
+                reject(next(appError(401, '驗證 token 發生問題'), next));
             } else {
                 resolve(payload);
             }
